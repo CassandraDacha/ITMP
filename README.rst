@@ -12,9 +12,11 @@ The following features were used for this project. I have attached the links to 
 
 * The user inputs the source address , destination address and the maximum number of hops.
 ITMP then sends a packet from the source address to the destination address.
+
 * The switches will increment the count value that indicates the total number of switches
 traversed and append their switch ID and queue length to the packet sent from the source
 address. ITMP will then compute the delay occurring at the switch after each hop.
+
 * The terminal then displays information regarding the switches that the packet traversed as well
 as their corresponding queue length and delays.
 
