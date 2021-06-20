@@ -1,83 +1,51 @@
 ==============================
-Patient Ward Automation System
+Improved Traceroute Measurement Protocol
 ==============================
 
-
-.. image:: https://img.shields.io/pypi/v/Patient-Ward-Automation.svg
-        :target: https://pypi.org/project/Patient-Ward-Automation/
-
-.. image:: https://img.shields.io/travis/CassandraDacha/Automation.svg
-        :target: https://travis-ci.com/CassandraDacha/Automation
-
-.. image:: https://readthedocs.org/projects/wardautomation/badge/?version=main
-        :target: https://wardautomation.readthedocs.io/en/latest/?badge=main
-        :alt: Documentation Status
-.. image:: https://pyup.io/repos/github/CassandraDacha/Automation/shield.svg
-     :target: https://pyup.io/account/repos/github/CassandraDacha/Automation/
-     :alt: Updates
-     
-* Github repo: Automation
-* Free software: MIT license
-* Documentation: https://wardautomation.readthedocs.io.
-
-Patient ward automation system. This automation system  will allow patients to be able to control
-the temperature, lighting, TV settings and the door of the ward they are in using a user-friendly
-web application on their phone.
-The hardware used is a combination of Raspberry Pi ,a Relay Module, a light bulb, A motor to represent the door and a fan.
-
+The purpose of this protocol is to provide an advanced traceroute model that provides
+solutions to the challenges posed when using the current traceroute model by giving additional information regarding the buffer sizes which may be a cause of delay in the network and reducing the amount of active traffic added to the network by sending a single packet instead of relying on multiple ICMP messages from IP packets.
 
 Features
 --------
 
 The following features were used for this project. I have attached the links to the specific devices
 
-* RPI Zero       https://za.rs-online.com/web/p/raspberry-pi/1812039/
-* Relay Module   https://za.rs-online.com/web/p/power-motor-robotics-development-tools/1845099//
-* Light Bulb     Any light bulb
-* Axial fan      https://za.rs-online.com/web/p/axial-fans/6688808/
-* DC motor       https://za.rs-online.com/web/p/dc-motors/2389715/
+* The user inputs the source address , destination address and the maximum number of hops.
+ITMP then sends a packet from the source address to the destination address.
+* The switches will increment the count value that indicates the total number of switches
+traversed and append their switch ID and queue length to the packet sent from the source
+address. ITMP will then compute the delay occurring at the switch after each hop.
+* The terminal then displays information regarding the switches that the packet traversed as well
+as their corresponding queue length and delays.
 
-Installation
+Running the ITMP protocol
 -------------
 Read the installation process from the Documentation link above.
 
-.. image:: https://github.com/CassandraDacha/Automation/blob/master/Demo_image.png
+.. image:: https://github.com/CassandraDacha/ITMP/blob/main/topology.png
     :width: 400px
     :align: center
     :height: 400px
     :alt: Circuit Diagram
-Once you have all these devices, you can connect them using the diagram above.
-After completing the connections, you need to download the requirements.txt file from  the Automation folder and install the requirements using the following command.
 
-   $ pip3 install -r requirements.txt
+To compile the ITMP.p4 and start an instance with two switches (S0 a0d S1) and two hosts (h1 with IP address 10.0.1.1 and h2 with IP address 10.0.2.2) run
 
-Note that this command is dependant on the python version. The Python version used in this project was Python 3.8.5.
+   $ make 
 
-For the react web app download all the files to your computer
-In your terminal, cd into the directory you just created and install all dependencies by using the following command
+Once the program is compiled and the mininet command prompt is visible,we need to ssh into the two hosts using the following command
 
-   $ npm install
+   $ Xterm h1 h2
 
-To look at the code, just open up the project in your favorite code editor!
+In `h1`'s xterm, send one packet per second to `h2` using send.py
+   say for 30 seconds:
 
-Testing
---------
-To test the API use the following command.
+   $ ./send.py 10.0.2.2 "Cassie is cool" 30
+ 
+In `h2`'s xterm, start the server that captures packets:
 
-   $ python3 Automation.py
+   $ ./receive.py
    
-To test the react web app use the following command.
-
-   $ npm start
-   
-  Video Demonstration
-  https://uctcloud-my.sharepoint.com/:v:/g/personal/dchcas001_myuct_ac_za/EaVf2bP-15pAoqdlKCTMAiUBHkA-79wKIWnbDDZdl7czfg?e=DtdMRl
-
 
 Credits
 -------
-
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+A majority of the code detailed above was obtained from https://github.com/p4lang/tutorials/tree/master/exercises
