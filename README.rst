@@ -38,10 +38,9 @@ Once the program is compiled and the mininet command prompt is visible,we need t
 
    $ Xterm h1 h2
 
-In `h1`'s xterm, send one packet per second to `h2` using send.py
-   say for 30 seconds:
+In `h1`'s xterm, send one packet per second to `h2` using send.py say for 30 seconds:
 
-   $./send.py 10.0.2.2 "Cassie is cool" 30
+   $ ./send.py 10.0.2.2 "Cassie is cool" 30
  
 In `h2`'s xterm, start the server that captures packets:
 
